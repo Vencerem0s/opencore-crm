@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup Condition="'$(DOTNET_RUNNING_IN_CONTAINER)' == 'true'">
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>/artifacts</ArtifactsPath>
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**</DefaultItemExcludes>
+  </PropertyGroup>
+</Project>

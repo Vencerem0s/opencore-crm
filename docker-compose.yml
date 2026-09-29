@@ -1,0 +1,41 @@
+name: opencore-crm
+
+services:
+  api:
+    build:
+      context: .
+      target: dev
+    command: ["dotnet", "watch", "run", "--project", "${API_PROJECT:-src/OpenCore.Api}", "--non-interactive", "--no-launch-profile"]
+    volumes:
+      - .:/src
+      - artifacts:/artifacts
+      - nuget:/root/.nuget/packages
+    ports:
+      - "${API_PORT:-8080}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: "Host=db;Port=5432;Database=${POSTGRES_DB:-opencore};Username=${POSTGRES_USER:-opencore};Password=${POSTGRES_PASSWORD:-opencore}"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-opencore}
+      POSTGRES_USER: ${POSTGRES_USER:-opencore}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-opencore}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  artifacts:
+  nuget:
+  pgdata:
