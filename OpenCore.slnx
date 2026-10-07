@@ -1,5 +1,9 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/OpenCore.Api/OpenCore.Api.csproj" />
+    <Project Path="src/OpenCore.Application/OpenCore.Application.csproj" />
+    <Project Path="src/OpenCore.Domain/OpenCore.Domain.csproj" />
+    <Project Path="src/OpenCore.Infrastructure/OpenCore.Infrastructure.csproj" />
+    <Project Path="src/OpenCore.SharedKernel/OpenCore.SharedKernel.csproj" />
   </Folder>
 </Solution>
