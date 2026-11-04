@@ -43,6 +43,7 @@ ScaffoldingReadMe.txt
 ~$*
 *~
 CodeCoverage/
+.DS_STORE
 
 # MSBuild Binary and Structured Log
 *.binlog
@@ -55,3 +56,5 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+src/OpenCore.Infrastructure/Persistence/Migrations
