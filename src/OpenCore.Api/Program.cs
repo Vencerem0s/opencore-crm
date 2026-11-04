@@ -9,6 +9,7 @@ var connectionString = builder.Configuration.GetConnectionString("Default")
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(connectionString);
 builder.Services.AddApplication();
+builder.Services.AddControllers();
 builder.Services.AddSingleton(TimeProvider.System);
 
 var app = builder.Build();
@@ -20,5 +21,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 
 app.Run();
