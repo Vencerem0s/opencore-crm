@@ -5,7 +5,7 @@ using OpenCore.Domain.Tasks.ValueObject;
 
 namespace OpenCore.Infrastructure.Persistence.Tasks.Configuration;
 
-public sealed class TaskItemConfiguration : IEntityTypeConfiguration<TaskItem>
+internal sealed class TaskItemConfiguration : IEntityTypeConfiguration<TaskItem>
 {
     public void Configure(EntityTypeBuilder<TaskItem> builder)
     {

@@ -4,7 +4,7 @@ using OpenCore.Domain.Tasks;
 
 namespace OpenCore.Infrastructure.Persistence;
 
-public sealed class OpenCoreDbContext(DbContextOptions<OpenCoreDbContext> options) : DbContext(options), IUnitOfWork
+internal sealed class OpenCoreDbContext(DbContextOptions<OpenCoreDbContext> options) : DbContext(options), IUnitOfWork
 {
     public DbSet<TaskItem> Tasks => Set<TaskItem>();
 
