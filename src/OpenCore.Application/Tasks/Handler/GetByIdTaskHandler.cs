@@ -13,7 +13,6 @@ public sealed class GetByIdTaskHandler(ITaskRepository repo)
 
         if (task is not null)
         {
-
             return new TaskDetailsDTO(task.Id.Value, task.Title.Value, task.CreatedAt);
         }
 

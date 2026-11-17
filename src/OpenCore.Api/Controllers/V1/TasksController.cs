@@ -26,7 +26,7 @@ public sealed class TasksController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(
+    public async Task<IActionResult> Get(
          Guid id,
          [FromServices] GetByIdTaskHandler handler,
          CancellationToken ct
@@ -43,6 +43,24 @@ public sealed class TasksController : ControllerBase
                         taskDetails.CreatedAt
                        )
                     );
+        }
+        catch (DomainNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(
+        Guid id,
+        [FromServices] DeleteByIdTaskHandler handler,
+        CancellationToken ct
+    )
+    {
+        try
+        {
+            return Ok(new DeleteTaskResponse(await handler.HandleAsync(id, ct)));
+
         }
         catch (DomainNotFoundException ex)
         {
