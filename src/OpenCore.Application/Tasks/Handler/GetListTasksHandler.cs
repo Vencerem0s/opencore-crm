@@ -11,8 +11,12 @@ public sealed class GetListTasksHandler(ITaskRepository repo)
 {
     public async Task<List<TaskListItemDTO>> HandleAsync(GetListTasksQuery query, CancellationToken ct)
     {
-        if (query.Limit < 1 || query.Offset < 0) {
-            throw new InvalidArgumentException();
+        if (query.Limit < 1) {
+            throw new InvalidArgumentException("Limit less then 1");
+        }
+
+        if (query.Offset < 0) {
+            throw new InvalidArgumentException("Offset less then 0");
         }
 
         TaskSearchCriteria criteria = new(query.Limit, query.Offset);
