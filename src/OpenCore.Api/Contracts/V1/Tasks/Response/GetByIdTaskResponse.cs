@@ -1,4 +1,4 @@
-namespace OpenCore.Api.Contracts.V1.Tasks;
+namespace OpenCore.Api.Contracts.V1.Tasks.Response;
 
 public sealed record GetByIdTaskResponse
 (

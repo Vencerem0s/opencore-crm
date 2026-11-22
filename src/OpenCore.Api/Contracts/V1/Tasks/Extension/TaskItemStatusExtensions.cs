@@ -1,6 +1,6 @@
 using OpenCore.Domain.Tasks.Enum;
 
-namespace OpenCore.Api.Contracts.V1.Tasks;
+namespace OpenCore.Api.Contracts.V1.Tasks.Extension;
 
 internal static class TaskItemStatusExtensions
 {

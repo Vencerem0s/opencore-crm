@@ -1,3 +1,0 @@
-namespace OpenCore.Api.Contracts.V1.Tasks;
-
-public sealed record CreateTaskResponse(Guid Id);

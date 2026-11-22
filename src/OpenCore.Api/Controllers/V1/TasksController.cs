@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using OpenCore.Api.Contracts.V1.Tasks;
+using OpenCore.Api.Contracts.V1.Tasks.Extension;
+using OpenCore.Api.Contracts.V1.Tasks.Request;
+using OpenCore.Api.Contracts.V1.Tasks.Response;
 using OpenCore.Application.Tasks.Command;
 using OpenCore.Application.Tasks.DTO;
 using OpenCore.Application.Tasks.Handler;
