@@ -40,6 +40,7 @@ public sealed class TasksController : ControllerBase
                     new GetByIdTaskResponse(
                         taskDetails.Id,
                         taskDetails.Title,
+                        taskDetails.Status.Label(),
                         taskDetails.CreatedAt
                        )
                     );

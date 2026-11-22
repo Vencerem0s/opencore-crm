@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OpenCore.Application.Common.Interface;
+using OpenCore.Domain.Tasks.Enum;
 using OpenCore.Domain.Tasks.Repository;
 using OpenCore.Infrastructure.Persistence;
 using OpenCore.Infrastructure.Persistence.Tasks.Repository;
@@ -13,7 +14,9 @@ public static class DependencyInjection
     {
         services.AddDbContext<OpenCoreDbContext>(options => 
                 options
-                    .UseNpgsql(connectionString)
+                    .UseNpgsql(connectionString,
+                        options => options.MapEnum<TaskItemStatus>("task_item_status")
+                    )
                     .UseSnakeCaseNamingConvention());
         
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<OpenCoreDbContext>());

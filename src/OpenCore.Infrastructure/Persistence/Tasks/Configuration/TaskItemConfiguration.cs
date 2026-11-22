@@ -20,6 +20,8 @@ internal sealed class TaskItemConfiguration : IEntityTypeConfiguration<TaskItem>
             .IsRequired()
             .HasConversion(title => title.Value, value => TaskTitle.Create(value));
 
+        builder.Property(t => t.Status).IsRequired();
+
         builder.Property(t => t.CreatedAt).IsRequired();
     }
 }
