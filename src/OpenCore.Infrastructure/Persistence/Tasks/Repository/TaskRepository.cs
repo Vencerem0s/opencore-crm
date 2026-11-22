@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using OpenCore.Domain.Tasks;
+using OpenCore.Domain.Tasks.Criteria;
 using OpenCore.Domain.Tasks.Repository;
 using OpenCore.Domain.Tasks.ValueObject;
 
@@ -16,5 +18,14 @@ internal sealed class TaskRepository(OpenCoreDbContext context) : ITaskRepositor
     {
         TaskId taskId = TaskId.Create(id);
         return await context.Tasks.FindAsync([taskId], ct);
+    }
+
+    public async Task<List<TaskItem>> GetListAsync(TaskSearchCriteria criteria, CancellationToken ct)
+    {
+        return await context.Tasks.OrderByDescending(t => t.CreatedAt)
+            .ThenBy(t => t.Id)
+            .Skip(criteria.Offset)
+            .Take(criteria.Limit)
+            .ToListAsync(ct);
     }
 }

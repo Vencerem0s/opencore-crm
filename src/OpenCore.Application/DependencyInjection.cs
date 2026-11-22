@@ -10,6 +10,7 @@ public static class DependencyInjection
         services.AddScoped<CreateTaskHandler>();
         services.AddScoped<GetByIdTaskHandler>();
         services.AddScoped<DeleteByIdTaskHandler>();
+        services.AddScoped<GetListTasksHandler>();
         return services;
     }
 }

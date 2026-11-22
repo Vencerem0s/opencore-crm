@@ -5,6 +5,8 @@ using OpenCore.Api.Contracts.V1.Tasks.Response;
 using OpenCore.Application.Tasks.Command;
 using OpenCore.Application.Tasks.DTO;
 using OpenCore.Application.Tasks.Handler;
+using OpenCore.Application.Tasks.Query;
+using OpenCore.SharedKernel.Exceptions;
 using OpenCore.SharedKernel.Exceptions.Domain;
 
 namespace OpenCore.Api.Controllers.V1;
@@ -50,6 +52,31 @@ public sealed class TasksController : ControllerBase
         catch (DomainNotFoundException ex)
         {
             return NotFound(ex.Message);
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Get(
+        [FromQuery] GetListTasksRequest request,
+        [FromServices] GetListTasksHandler handler,
+        CancellationToken ct
+    )
+    {
+        try
+        {
+            GetListTasksQuery query = new(request.Limit, request.Offset);
+
+            List<TaskListItemDTO> tasksList = await handler.HandleAsync(query, ct);
+
+            List<GetListTasksResponse> tasks = [.. tasksList.Select(
+                el => new GetListTasksResponse(el.Id, el.Title, el.Status.Label(), el.CreatedAt)
+            )];
+
+            return Ok(new { items = tasks });
+        }
+        catch (InvalidArgumentException ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 
